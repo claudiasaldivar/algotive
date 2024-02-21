@@ -1,6 +1,11 @@
 import { createContext, useState, useEffect, ReactNode } from 'react'
-import { IVideo } from '../interfaces/IVideo';
+
+//Services
 import { fetchVideos } from '../services/videosService';
+
+//Interfaces
+import { IVideo } from '../interfaces/IVideo';
+
 
 const VideoContext = createContext<any>(null);
 

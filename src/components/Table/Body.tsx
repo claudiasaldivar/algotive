@@ -22,22 +22,22 @@ const Body:React.FC<IVideo> = ({ id, author, title, created_at, description, rel
     
   return (
     <tr key={id} className='text-center'>
-              <td className="border px-4 py-2">{id}</td>
-              <td className="border px-4 py-2">{author}</td>
-              <td className="border px-4 py-2">{title}</td>
-              <td className="border px-4 py-2">{formatDate(created_at)}</td>
-              <td className="border px-4 py-2">{description}</td>
-              <td className="border px-4 py-2">{release_date}</td>
-              <td className="border px-4 py-2">{formatDate(updated_at)}</td>
-              <td className="flex justify-center border px-4 py-2">
-                <Button onClick={() => {
-                    setOpen(true);
-                    getVideo(url)
-                  }}>
-                    <AiFillPlayCircle />
-                </Button>
-              </td>
-            </tr>
+      <td className="border px-4 py-2">{id}</td>
+      <td className="border px-4 py-2">{author}</td>
+      <td className="border px-4 py-2">{title}</td>
+      <td className="border px-4 py-2">{formatDate(created_at)}</td>
+      <td className="border px-4 py-2">{description}</td>
+      <td className="border px-4 py-2">{release_date}</td>
+      <td className="border px-4 py-2">{formatDate(updated_at)}</td>
+      <td className="flex justify-center border px-4 py-2">
+        <Button onClick={() => {
+            setOpen(true);
+            getVideo(url)
+          }}>
+            <AiFillPlayCircle />
+        </Button>
+      </td>
+    </tr>
   )
 }
 
