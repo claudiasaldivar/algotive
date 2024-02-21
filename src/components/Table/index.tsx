@@ -1,10 +1,10 @@
 import { useContext } from 'react'
 
 //Icons
-import { AiFillPlayCircle, AiFillFastBackward, AiFillFastForward } from "react-icons/ai";
+import { AiFillFastBackward, AiFillFastForward } from "react-icons/ai";
 
-//Helpers
-import { formatDate } from '../../helpers/formatDate';
+//Assets
+import { Titles } from '../../helpers/assets/titles';
 
 //Interfaces
 import{ IVideo }  from '../../interfaces/IVideo'
@@ -13,6 +13,7 @@ import{ IVideo }  from '../../interfaces/IVideo'
 import { VideoContext } from '../../context/VideoContext'
 
 //Component
+import Body from './Body';
 import Button from '../Buttons';
 
 const Table : React.FC = () => {
@@ -30,36 +31,24 @@ const Table : React.FC = () => {
       <table className="table-auto w-full sm:px-4 sm:py-3">
         <thead>
           <tr>
-            <th className="px-4 py-2 w-1/8">ID</th>
-            <th className="px-4 py-2 w-1/8">Author</th>
-            <th className="px-4 py-2 w-1/8">Title</th>
-            <th className="px-4 py-2 w-1/8">Created At</th>
-            <th className="px-4 py-2 w-1/8">Description</th>
-            <th className="px-4 py-2 w-1/8">Release Date</th>
-            <th className="px-4 py-2 w-1/8">Updated At</th>
-            <th className="px-4 py-2 w-1/8">URL</th>
+            {Titles.map((title: string) => (
+              <th key={title} className="px-4 py-2 w-1/8">{title}</th>
+            ))}
           </tr>
         </thead>
         <tbody>
           {videos.map((video: IVideo) => (
-            <tr key={video.id} className='text-center'>
-              <td className="border px-4 py-2">{video.id}</td>
-              <td className="border px-4 py-2">{video.author}</td>
-              <td className="border px-4 py-2">{video.title}</td>
-              <td className="border px-4 py-2">{formatDate(video.created_at)}</td>
-              <td className="border px-4 py-2">{video.description}</td>
-              <td className="border px-4 py-2">{video.release_date}</td>
-              <td className="border px-4 py-2">{formatDate(video.updated_at)}</td>
-              <td className="flex justify-center border px-4 py-2">
-                <Button onClick={() => {
-                    setOpen(true);
-                    getVideo(video.url)
-                  }}>
-                    <AiFillPlayCircle />
-                </Button>
-              </td>
-            </tr>
-          ))}
+            <Body
+              key={video.id} 
+              id={video.id} 
+              author={video.author} 
+              title={video.title} 
+              created_at={video.created_at} 
+              description={video.description} 
+              release_date={video.release_date} 
+              updated_at={video.updated_at} 
+              url={video.url}  
+          />))}
         </tbody>
       </table>
       </div>

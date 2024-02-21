@@ -5,4 +5,5 @@ export interface IVideoResponse {
     next: string | null;
     previous: string | null;
     results: IVideo[];
+    error?: boolean
 }

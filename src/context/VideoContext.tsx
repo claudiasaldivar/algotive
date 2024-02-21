@@ -16,9 +16,11 @@ function VideoProvider({ children }: { children: ReactNode }){
     useEffect(() => {
       const loadVideos = async () => {
         const fetchedVideos = await fetchVideos(currentPage);
-  
-        setVideos(fetchedVideos.results);
-        setHasNextPage(fetchedVideos.next !== null);
+        if(fetchedVideos?.error){
+          return setError(true)
+        }
+        setVideos(fetchedVideos?.results);
+        setHasNextPage(fetchedVideos?.next !== null);
       };
       loadVideos();
     }, [currentPage]);

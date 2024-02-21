@@ -11,8 +11,7 @@ async function fetchVideos(page: number): Promise<IVideoResponse> {
         const data: IVideoResponse = await response.json();
         return data;
     } catch (error) {
-        console.error('Error al cargar los videos:', error);
-        return { count: 0, next: null, previous: null, results: [] }; 
+        return { count: 0, next: null, previous: null, results: [], error: true }; 
     }
 }
 
