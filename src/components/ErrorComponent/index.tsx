@@ -1,3 +1,4 @@
+//Interfaces
 import { IError } from "./interfaces/IError"
 
 const Error: React.FC<IError> = ({children}) => {

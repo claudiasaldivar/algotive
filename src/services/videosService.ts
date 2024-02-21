@@ -1,3 +1,4 @@
+//Interfaces
 import { IVideoResponse } from './interfaces/IVideos';
 
 async function fetchVideos(page: number): Promise<IVideoResponse> {

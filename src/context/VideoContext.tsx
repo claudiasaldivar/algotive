@@ -14,12 +14,11 @@ function VideoProvider({ children }: { children: ReactNode }){
     const [loading, setLoading] = useState<boolean>(true)
     const [error, setError] = useState<boolean>(false)
     const [videos, setVideos] = useState<IVideo[]>([]);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [hasNextPage, setHasNextPage] = useState(true);
-    const [videoModal, setVideoModal] = useState('')
-
+    const [currentPage, setCurrentPage] = useState<number>(1);
+    const [hasNextPage, setHasNextPage] = useState<boolean>(true);
+    const [videoModal, setVideoModal] = useState<string>('')
+    const [search, setSearch] = useState('');
     
-  
     useEffect(() => {
       setLoading(true)
       const loadVideos = async () => {
@@ -29,8 +28,7 @@ function VideoProvider({ children }: { children: ReactNode }){
         }
         setVideos(fetchedVideos?.results);
         setHasNextPage(fetchedVideos?.next !== null);
-        setTimeout(() => { setLoading(false) }, 1000)
-        
+        setTimeout(() => { setLoading(false) }, 500)
       };
       loadVideos();
     }, [currentPage]);
@@ -51,6 +49,10 @@ function VideoProvider({ children }: { children: ReactNode }){
       setVideoModal(video)
     }
 
+    const searchedVideos = videos.filter( video => (
+      video.title.toLowerCase().includes(search.toLowerCase())
+  ))
+
     const store = {
         loading,
         error,
@@ -59,6 +61,9 @@ function VideoProvider({ children }: { children: ReactNode }){
         currentPage,
         hasNextPage,
         videoModal, 
+        searchedVideos,
+        search,
+        setSearch,
         setOpen,
         setVideos,
         setCurrentPage,
@@ -68,7 +73,7 @@ function VideoProvider({ children }: { children: ReactNode }){
         setError,
         handleNextPage,
         handlePrevPage,
-        getVideo
+        getVideo,
     }
 
     return (
