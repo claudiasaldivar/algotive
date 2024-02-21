@@ -1,6 +1,6 @@
 # Algotive Challenge
 
-This project was created with React, Typescriptand Tailwind.
+This project was created with React, Typescriptand and Tailwind.
 
 ## Run your backend
 
