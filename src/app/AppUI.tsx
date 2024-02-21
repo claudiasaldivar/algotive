@@ -12,7 +12,6 @@ import Error from '../components/ErrorComponent'
 
 const AppUI: React.FC = () => {
     const {
-        loading,
         error,
         open,
         videoModal, 

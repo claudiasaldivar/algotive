@@ -6,19 +6,22 @@ import { fetchVideos } from '../services/videosService';
 //Interfaces
 import { IVideo } from '../interfaces/IVideo';
 
-
+//Context
 const VideoContext = createContext<any>(null);
 
 function VideoProvider({ children }: { children: ReactNode }){
     const [open, setOpen] = useState<boolean>(false)
-    const [loading, setLoading] = useState<boolean>(false)
+    const [loading, setLoading] = useState<boolean>(true)
     const [error, setError] = useState<boolean>(false)
     const [videos, setVideos] = useState<IVideo[]>([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [hasNextPage, setHasNextPage] = useState(true);
     const [videoModal, setVideoModal] = useState('')
+
+    
   
     useEffect(() => {
+      setLoading(true)
       const loadVideos = async () => {
         const fetchedVideos = await fetchVideos(currentPage);
         if(fetchedVideos?.error){
@@ -26,6 +29,8 @@ function VideoProvider({ children }: { children: ReactNode }){
         }
         setVideos(fetchedVideos?.results);
         setHasNextPage(fetchedVideos?.next !== null);
+        setTimeout(() => { setLoading(false) }, 1000)
+        
       };
       loadVideos();
     }, [currentPage]);
@@ -45,7 +50,6 @@ function VideoProvider({ children }: { children: ReactNode }){
     const getVideo = (video: string) => {
       setVideoModal(video)
     }
-
 
     const store = {
         loading,
