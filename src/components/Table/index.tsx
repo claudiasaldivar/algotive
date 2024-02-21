@@ -1,12 +1,33 @@
-import { formatDate } from '../helpers/formatDate';
-import { AiFillPlayCircle, AiFillFastBackward, AiFillFastForward } from "react-icons/ai";
-import{ Props }  from '../interfaces/videosInterface'
+import { useContext } from 'react'
 
-const Table : React.FC<Props> = ({videos, setOpen, getVideo, handleNextPage, handlePrevPage, currentPage}) => {
+//Icons
+import { AiFillPlayCircle, AiFillFastBackward, AiFillFastForward } from "react-icons/ai";
+
+//Helpers
+import { formatDate } from '../../helpers/formatDate';
+
+//Interfaces
+import{ IVideo }  from '../../interfaces/IVideo'
+
+//Context
+import { VideoContext } from '../../context/VideoContext'
+
+//Component
+import Button from '../Buttons';
+
+const Table : React.FC = () => {
+  const {
+    videos,
+    currentPage,
+    setOpen,
+    handleNextPage,
+    handlePrevPage,
+    getVideo} = useContext(VideoContext)
+    
   return (
     <>
     <div className="overflow-x-auto">
-    <table className="table-auto w-full sm:px-4 sm:py-3">
+      <table className="table-auto w-full sm:px-4 sm:py-3">
         <thead>
           <tr>
             <th className="px-4 py-2 w-1/8">ID</th>
@@ -20,7 +41,7 @@ const Table : React.FC<Props> = ({videos, setOpen, getVideo, handleNextPage, han
           </tr>
         </thead>
         <tbody>
-          {videos.map(video => (
+          {videos.map((video: IVideo) => (
             <tr key={video.id} className='text-center'>
               <td className="border px-4 py-2">{video.id}</td>
               <td className="border px-4 py-2">{video.author}</td>
@@ -30,10 +51,12 @@ const Table : React.FC<Props> = ({videos, setOpen, getVideo, handleNextPage, han
               <td className="border px-4 py-2">{video.release_date}</td>
               <td className="border px-4 py-2">{formatDate(video.updated_at)}</td>
               <td className="flex justify-center border px-4 py-2">
-              <button className="bg-blue-500 hover:bg-blue-700 text-white font-light py-2 px-4 rounded ml-2" onClick={() => {
-                setOpen(true);
-                getVideo(video.url)
-                }}><AiFillPlayCircle /></button>
+                <Button onClick={() => {
+                    setOpen(true);
+                    getVideo(video.url)
+                  }}>
+                    <AiFillPlayCircle />
+                </Button>
               </td>
             </tr>
           ))}
@@ -41,16 +64,14 @@ const Table : React.FC<Props> = ({videos, setOpen, getVideo, handleNextPage, han
       </table>
       </div>
       <div className="mt-4">
-      <button 
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2" 
-        onClick={handlePrevPage}>
+        <Button onClick={handlePrevPage}>
           <AiFillFastBackward />
-      </button>
-      <span>Page {currentPage}</span>
-      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2" onClick={handleNextPage}>
+        </Button>
+        <span className='px-2'>Page {currentPage}</span>
+        <Button onClick={handleNextPage}>
           <AiFillFastForward />
-      </button>
-    </div>
+        </Button>
+      </div>
     </>
   )
 }

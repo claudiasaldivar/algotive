@@ -1,6 +1,6 @@
-import { VideoResponse } from '../interfaces/videosInterface';
+import { IVideoResponse } from './interfaces/IVideos';
 
-async function fetchVideos(page: number): Promise<VideoResponse> {
+async function fetchVideos(page: number): Promise<IVideoResponse> {
     const url = `/api/v1/videos/?page=${page}`;
     
     try {
@@ -8,7 +8,7 @@ async function fetchVideos(page: number): Promise<VideoResponse> {
         if (!response.ok) {
             throw new Error('Error al cargar los videos');
         }
-        const data: VideoResponse = await response.json();
+        const data: IVideoResponse = await response.json();
         return data;
     } catch (error) {
         console.error('Error al cargar los videos:', error);
